@@ -53,7 +53,7 @@ const Header = ({ activeHeading }) => {
         <div className=" 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between">
           <div>
             <img
-              src="./logo0.png"
+              src="/logo0.png"
               alt="logo"
               style={{
                 width: "260px",

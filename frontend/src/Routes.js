@@ -4,6 +4,11 @@ import ActivationPage from "../src/pages/ActivationPage";
 import HomePage from "../src/pages/HomePage";
 import ProductsPage from "../src/pages/ProductsPage";
 import FAQPage from "../src/pages/FAQPage";
+import CheckoutPage from "../src/pages/CheckoutPage";
+import PaymentPage from "../src/pages/PaymentPage";
+import ProductDetailsPage from "../src/pages/ProductDetailsPage";
+import OrderSuccessPage from "../src/pages/OrderSuccessPage";
+import ProfilePage from "../src/pages/ProfilePage";
 
 export {
   LoginPage,
@@ -12,4 +17,9 @@ export {
   HomePage,
   ProductsPage,
   FAQPage,
+  CheckoutPage,
+  PaymentPage,
+  ProductDetailsPage,
+  OrderSuccessPage,
+  ProfilePage,
 };
