@@ -62,5 +62,3 @@ export const productReducer = createReducer(initialState, (builder) => {
       state.error = null;
     });
 });
-
-// Add other actions related to the product as needed
