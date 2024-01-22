@@ -22,6 +22,7 @@ import {
   ShopCreatePage,
   SellerActivationPage,
   ShopLoginPage,
+  Shop,
 } from "./routes/Routes.js";
 
 import { ToastContainer } from "react-toastify";
@@ -35,6 +36,8 @@ import {
   ShopDashboardPage,
   ShopCreateProduct,
   ShopAllProducts,
+  ShopCreateDonations,
+  ShopAllDonations,
 } from "./routes/ShopRoutes.js";
 
 const App = () => {
@@ -113,6 +116,22 @@ const App = () => {
           element={
             <SellerProtectedRoute>
               <ShopAllProducts />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard-create-donation"
+          element={
+            <SellerProtectedRoute>
+              <ShopCreateDonations />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard-donations"
+          element={
+            <SellerProtectedRoute>
+              <ShopAllDonations />
             </SellerProtectedRoute>
           }
         />
