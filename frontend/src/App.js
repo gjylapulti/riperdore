@@ -1,12 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useNavigation,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   LoginPage,
   SignupPage,
@@ -22,30 +16,33 @@ import {
   ShopCreatePage,
   SellerActivationPage,
   ShopLoginPage,
-  Shop,
 } from "./routes/Routes.js";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Store from "./redux/store";
 import { loadSeller, loadUser } from "./redux/actions/user";
+import { useSelector } from "react-redux";
 import ProtectedRoute from "./routes/ProtectedRoute.js";
 import SellerProtectedRoute from "./routes/SellerProtectedRoute.js";
 import {
-  ShopHomePage,
   ShopDashboardPage,
   ShopCreateProduct,
   ShopAllProducts,
   ShopCreateDonations,
   ShopAllDonations,
 } from "./routes/ShopRoutes.js";
+import { ShopHomePage } from "./ShopRoutes.js";
+import { getAllProducts } from "./redux/actions/product";
+import { getAllDonations } from "./redux/actions/donation";
 
 const App = () => {
   useEffect(() => {
     Store.dispatch(loadUser());
     Store.dispatch(loadSeller());
+    Store.dispatch(getAllProducts());
+    Store.dispatch(getAllDonations());
   }, []);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -62,7 +59,6 @@ const App = () => {
         />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/product/:name" element={<ProductDetailsPage />} />
-        <Route path="/faq" element={<FAQPage />} />
         <Route
           path="/checkout"
           element={

@@ -20,6 +20,7 @@ import { RxCross1 } from "react-icons/rx";
 
 const Header = ({ activeHeading }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { allProducts } = useSelector((state) => state.products);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
@@ -32,9 +33,11 @@ const Header = ({ activeHeading }) => {
     const term = e.target.value;
     setSearchTerm(term);
 
-    const filteredProducts = productData.filter((product) =>
-      product.name.toLowerCase().includes(term.toLowerCase())
-    );
+    const filteredProducts =
+      allProducts &&
+      allProducts.filter((product) =>
+        product.name.toLowerCase().includes(term.toLowerCase())
+      );
     setSearchData(filteredProducts);
   };
 
@@ -56,7 +59,6 @@ const Header = ({ activeHeading }) => {
                 src="/logo0.png"
                 alt=""
                 style={{ width: "200px", height: "50px" }}
-                className="mt-3 cursor-pointer"
               />
             </Link>
           </div>
@@ -67,7 +69,7 @@ const Header = ({ activeHeading }) => {
               placeholder="Search Product..."
               value={searchTerm}
               onChange={handleSearchChange}
-              className="h-[40px] w-full px-2 border-[#f7cdd1] border-[2px] rounded-md"
+              className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
             />
             <AiOutlineSearch
               size={30}
@@ -84,7 +86,7 @@ const Header = ({ activeHeading }) => {
                       <Link to={`/product/${Product_name}`}>
                         <div className="w-full flex items-start-py-3">
                           <img
-                            src={i.image_Url[0].url}
+                            src={`${backend_url}${i.images[0]}`}
                             alt=""
                             className="w-[40px] h-[40px] mr-[10px]"
                           />
@@ -100,7 +102,7 @@ const Header = ({ activeHeading }) => {
           <div className={`${styles.button}`}>
             <Link to="/shop-create">
               <h1 className="text-[#fff] flex items-center">
-                Sell / Donate <IoIosArrowForward className="ml-1" />
+                Become Seller <IoIosArrowForward className="ml-1" />
               </h1>
             </Link>
           </div>
@@ -211,6 +213,7 @@ const Header = ({ activeHeading }) => {
               size={40}
               className="ml-4"
               onClick={() => setOpen(true)}
+              cursor="pointer"
             />
           </div>
           <div>
@@ -219,7 +222,6 @@ const Header = ({ activeHeading }) => {
                 src="/logo0.png"
                 alt=""
                 style={{ width: "200px", height: "50px" }}
-                className="mt-3 cursor-pointer"
               />
             </Link>
           </div>
@@ -290,7 +292,7 @@ const Header = ({ activeHeading }) => {
               <div className={`${styles.button} ml-4 !rounded-[4px]`}>
                 <Link to="/shop-create">
                   <h1 className="text-[#fff] flex items-center">
-                    Sell <IoIosArrowForward className="ml-1" />
+                    Become Seller <IoIosArrowForward className="ml-1" />
                   </h1>
                 </Link>
               </div>
