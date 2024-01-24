@@ -131,10 +131,10 @@ const CreateProduct = () => {
           <input
             type="number"
             name="price"
-            value={originalPrice}
+            value={discountPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            onChange={(e) => setOriginalPrice(e.target.value)}
-            placeholder="Enter your product price..."
+            onChange={(e) => setDiscountPrice(e.target.value)}
+            placeholder="Enter your product original price..."
           />
         </div>
         <br />
@@ -145,12 +145,13 @@ const CreateProduct = () => {
           <input
             type="number"
             name="price"
-            value={discountPrice}
+            value={originalPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            onChange={(e) => setDiscountPrice(e.target.value)}
-            placeholder="Enter your product price with discount..."
+            onChange={(e) => setOriginalPrice(e.target.value)}
+            placeholder="Enter your product discount price (if applicable)..."
           />
         </div>
+        <br />
 
         <br />
         <div>

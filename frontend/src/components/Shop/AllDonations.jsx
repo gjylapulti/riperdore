@@ -92,13 +92,16 @@ const AllDonations = () => {
     },
   ];
 
-  const rows = donations?.map((donation) => ({
-    id: donation._id,
-    name: donation.name,
-    category: donation.category,
-    quantity: donation.quantity,
-    condition: donation.condition,
-  }));
+  // Ensure donations is an array before mapping
+  const rows = Array.isArray(donations)
+    ? donations.map((donation) => ({
+        id: donation._id,
+        name: donation.name,
+        category: donation.category,
+        quantity: donation.quantity,
+        condition: donation.condition,
+      }))
+    : [];
 
   return (
     <>

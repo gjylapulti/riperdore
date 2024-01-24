@@ -5,6 +5,7 @@ import Categories from "../components/Route/Categories/Categories";
 import BestDeals from "../components/Route/BestDeals/BestDeals";
 import FeaturedProduct from "../components/Route/FeaturedProduct/FeaturedProduct";
 import Footer from "../components/Layout/Footer";
+import Donations from "../components/Donations/Donations";
 
 const HomePage = () => {
   return (
@@ -13,7 +14,7 @@ const HomePage = () => {
       <Hero />
       <Categories />
       <BestDeals />
-      {/* Events */}
+      <Donations />
       <FeaturedProduct />
       {/* Sponsored */}
       <Footer />

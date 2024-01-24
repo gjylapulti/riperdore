@@ -16,6 +16,7 @@ import {
   ShopCreatePage,
   SellerActivationPage,
   ShopLoginPage,
+  DonationsPage,
 } from "./routes/Routes.js";
 
 import { ToastContainer } from "react-toastify";
@@ -67,6 +68,9 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/donations" element={<DonationsPage />} />
+
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/order/success/:id" element={<OrderSuccessPage />} />
         <Route
