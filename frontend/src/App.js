@@ -59,7 +59,7 @@ const App = () => {
           element={<SellerActivationPage />}
         />
         <Route path="/products" element={<ProductsPage />} />
-        <Route path="/product/:name" element={<ProductDetailsPage />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route
           path="/checkout"
           element={
