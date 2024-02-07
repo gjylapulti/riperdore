@@ -5,6 +5,8 @@ const initialState = {
   loading: false,
   user: null,
   error: null,
+  addressloading: false,
+  successMessage: null,
 };
 
 export const userReducer = createReducer(initialState, (builder) => {
@@ -16,14 +18,53 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.isAuthenticated = true;
       state.loading = false;
       state.user = action.payload;
-      state.error = null; // Assuming you want to clear the error on success
+      state.error = null;
     })
     .addCase("LoadUserFail", (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.isAuthenticated = false;
     })
+    .addCase("updateUserInfoRequest", (state) => {
+      state.loading = true;
+    })
+    .addCase("updateUserInfoSuccess", (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+      state.error = null;
+    })
+    .addCase("updateUserInfoFailed", (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
+    .addCase("updateUserAddressRequest", (state) => {
+      state.addressloading = true;
+    })
+    .addCase("updateUserAddressSuccess", (state, action) => {
+      state.addressloading = false;
+      state.successMessage = action.payload.successMessage;
+      state.user = action.payload.user;
+    })
+    .addCase("updateUserAddressFailed", (state, action) => {
+      state.addressloading = false;
+      state.error = action.payload;
+    })
+    .addCase("deleteUserAddressRequest", (state) => {
+      state.addressloading = true;
+    })
+    .addCase("deleteUserAddressSuccess", (state, action) => {
+      state.addressloading = false;
+      state.successMessage = action.payload.successMessage;
+      state.user = action.payload.user;
+    })
+    .addCase("deleteUserAddressFailed", (state, action) => {
+      state.addressloading = false;
+      state.error = action.payload;
+    })
     .addCase("clearErrors", (state) => {
       state.error = null;
+    })
+    .addCase("clearMessages", (state) => {
+      state.successMessage = null;
     });
 });

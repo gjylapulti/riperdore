@@ -1,23 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { navItems } from "../../static/data";
 import styles from "../../styles/styles";
 
-const Navbar = ({ active }) => {
+const Navbar = () => {
+  const { pathname } = useLocation();
+
   return (
     <div className={`block 800px:${styles.noramlFlex}`}>
       {navItems &&
-        navItems.map((i, index) => (
-          <div className="flex">
+        navItems.map((item, index) => (
+          <div className="flex" key={index}>
             <Link
-              to={i.url}
+              to={item.url}
               className={`${
-                active === index + 1
-                  ? "text-[#fc3dd9]"
-                  : "text-black 800px:text-[#fff]"
-              } pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer}`}
+                pathname === item.url ? "text-[#a76a30]" : "text-black"
+              } pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
             >
-              {i.title}
+              {item.title}
             </Link>
           </div>
         ))}

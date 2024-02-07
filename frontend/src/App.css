@@ -43,3 +43,20 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.Hero {
+  height: 100vh;
+  background: url('./../public/hero-bg3.png') center center;
+}
+
+.title {
+  font-weight: 500;
+  
+}
+
+.sub-title {
+  font-family: 'Edu VIC WA NT Beginner', cursive;
+  color: black;
+  filter: drop-shadow(0 0 10px black);
+
+}

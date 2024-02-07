@@ -4,10 +4,7 @@ export const navItems = [
     title: "Home",
     url: "/",
   },
-  {
-    title: "Best Selling",
-    url: "/best-selling",
-  },
+
   {
     title: "Products",
     url: "/products",
@@ -15,6 +12,10 @@ export const navItems = [
   {
     title: "Donations",
     url: "/donations",
+  },
+  {
+    title: "Blog",
+    url: "/blog",
   },
   {
     title: "FAQ",
