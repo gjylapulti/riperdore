@@ -45,8 +45,11 @@ input[type=number] {
 }
 
 .Hero {
-  height: 100vh;
-  background: url('./../public/hero-bg3.png') center center;
+  height: 90vh;
+  width: 100%;
+  background: url('./../public/hero07-3.png') center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .title {
@@ -60,3 +63,4 @@ input[type=number] {
   filter: drop-shadow(0 0 10px black);
 
 }
+

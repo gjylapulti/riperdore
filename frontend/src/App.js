@@ -26,6 +26,7 @@ import {
   SellerActivationPage,
   ShopLoginPage,
   DonationsPage,
+  OrderDetailsPage,
 } from "./routes/Routes.js";
 import {
   ShopDashboardPage,
@@ -34,6 +35,8 @@ import {
   ShopCreateDonations,
   ShopAllDonations,
   ShopPreviewPage,
+  ShopAllOrders,
+  ShopOrderDetails,
 } from "./routes/ShopRoutes.js";
 import { ShopHomePage } from "./ShopRoutes.js";
 import { getAllProducts } from "./redux/actions/product";
@@ -134,6 +137,16 @@ const App = () => {
             </SellerProtectedRoute>
           }
         />
+
+        <Route
+          path="/user/order/:id"
+          element={
+            <ProtectedRoute>
+              <OrderDetailsPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/dashboard-create-donation"
           element={
@@ -147,6 +160,23 @@ const App = () => {
           element={
             <SellerProtectedRoute>
               <ShopAllDonations />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard-orders"
+          element={
+            <SellerProtectedRoute>
+              <ShopAllOrders />
+            </SellerProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/order/:id"
+          element={
+            <SellerProtectedRoute>
+              <ShopOrderDetails />
             </SellerProtectedRoute>
           }
         />

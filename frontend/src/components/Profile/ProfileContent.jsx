@@ -10,7 +10,6 @@ import styles from "../../styles/styles";
 
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
-
 import { Link } from "react-router-dom";
 import { MdTrackChanges } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
@@ -217,11 +216,10 @@ const AllOrders = () => {
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
+        return params.value === "Delivered" ? "greenColor" : "redColor";
       },
     },
+
     {
       field: "itemsQty",
       headerName: "Items Qty",
