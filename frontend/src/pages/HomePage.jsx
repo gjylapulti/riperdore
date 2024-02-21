@@ -16,7 +16,6 @@ const HomePage = () => {
       <BestDeals />
       <Donations />
       <FeaturedProduct />
-      {/* Sponsored */}
       <Footer />
     </div>
   );

@@ -15,19 +15,37 @@ const OrderSuccessPage = () => {
 };
 
 const Success = () => {
+  console.log("Animation Data:", animationData);
+
   const defaultOptions = {
     loop: false,
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: "xMidYMid meet", // Change preserveAspectRatio value
     },
   };
+
+  console.log("Default Options:", defaultOptions);
+
   return (
     <div>
-      <Lottie options={defaultOptions} width={300} height={300} />
-      <h5 className="text-center mb-14 text-[25px] text-[#000000a1]">
-        Your order is successful 😍
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100vw",
+          height: "50vh",
+        }}
+      >
+        <div style={{ width: "300px", height: "300px" }}>
+          <Lottie animationData={animationData} options={defaultOptions} />
+        </div>
+      </div>
+
+      <h5 className="text-center mb-14 text-[25px] text-black font-semibold">
+        Order Placed Successfully !
       </h5>
       <br />
       <br />

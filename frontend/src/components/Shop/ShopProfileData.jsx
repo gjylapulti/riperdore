@@ -16,7 +16,7 @@ const ShopProfileData = ({ isOwner }) => {
 
   useEffect(() => {
     dispatch(getAllProductsShop(id));
-    dispatch(getAllDonationsShop(seller._id));
+    dispatch(getAllDonationsShop(id));
   }, [dispatch]);
 
   const [active, setActive] = useState(1);
@@ -95,7 +95,7 @@ const ShopProfileData = ({ isOwner }) => {
           </div>
           {donations && donations.length === 0 && (
             <h5 className="w-full text-center py-5 text-[18px]">
-              No Events have for this shop!
+              No Donations available for this shop!
             </h5>
           )}
         </div>

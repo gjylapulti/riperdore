@@ -5,6 +5,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const { isAuthenticated, isSeller } = require("../middleware/auth");
 const Order = require("../model/order");
 const Product = require("../model/product");
+const sendMail = require("../utils/sendMail");
 
 // create new order
 router.post(
@@ -12,6 +13,8 @@ router.post(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { cart, shippingAddress, user, totalPrice, paymentInfo } = req.body;
+
+      console.log("Received Data:", req.body);
 
       //   group cart items by shopId
       const shopItemsMap = new Map();
@@ -37,6 +40,29 @@ router.post(
         });
         orders.push(order);
       }
+
+      // Construct email content with order information
+      let emailContent = `Your order has been successfully placed!\n\n`;
+      orders.forEach((order) => {
+        emailContent += `Order ID: ${order._id}\n`;
+        emailContent += `Total Price: ${order.totalPrice}€\n`;
+        emailContent += `Shipping Address:\n`;
+        emailContent += `Address Line 1: ${order.shippingAddress.address1}\n`;
+        emailContent += `Address Line 2: ${order.shippingAddress.address2}\n`;
+        emailContent += `Zip Code: ${order.shippingAddress.zipCode}\n`;
+        emailContent += `City: ${order.shippingAddress.city}\n`;
+        emailContent += `Country: ${order.shippingAddress.country}\n`;
+        emailContent += `Payment Info:\n`;
+        // Loop through payment info if needed and add details
+        emailContent += `\n`; // Add spacing between orders
+      });
+
+      // Send email upon successful order creation
+      await sendMail({
+        email: user.email,
+        subject: "Order Confirmation",
+        message: emailContent,
+      });
 
       res.status(201).json({
         success: true,

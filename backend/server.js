@@ -1,4 +1,9 @@
+require("dotenv").config({
+  path: "backend/config/.env",
+});
+
 const app = require("./app");
+
 const connectDatabase = require("./db/Database");
 
 // Handling uncaught Exception

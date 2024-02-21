@@ -25,6 +25,15 @@ const donationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  originalPrice: {
+    type: Number,
+    default: 0,
+  },
+  discountPrice: {
+    type: Number,
+    default: 0,
+  },
+
   shop: {
     type: Object,
     required: true,

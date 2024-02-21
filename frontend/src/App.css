@@ -64,3 +64,38 @@ input[type=number] {
 
 }
 
+.donationcontainer{
+  margin-top: 25px;
+}
+
+.image-container {
+  width: 100%;
+  max-width: 300px; 
+  height: auto;
+  margin-left: 20%;
+}
+
+@media (max-width: 600px) {
+  .image-container {
+    margin: auto;
+
+  }
+}
+
+.pinkTick {
+  width: 20px;
+  height: 20px;
+  border-bottom: 2px solid pink;
+  border-right: 2px solid pink;
+  transform: rotate(-45deg);
+  animation: pinkTickAnimation 0.5s forwards;
+}
+
+@keyframes pinkTickAnimation {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}

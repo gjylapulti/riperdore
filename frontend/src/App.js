@@ -45,15 +45,39 @@ import axios from "axios";
 import { server } from "./server";
 
 const App = () => {
+  const [stripeApikey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get(`${server}/payment/stripeapikey`);
+    setStripeApiKey(data.stripeApikey);
+  }
+
   useEffect(() => {
     Store.dispatch(loadUser());
     Store.dispatch(loadSeller());
     Store.dispatch(getAllProducts());
     Store.dispatch(getAllDonations());
+    getStripeApiKey();
   }, []);
+
+  console.log(stripeApikey);
 
   return (
     <BrowserRouter>
+      {stripeApikey && (
+        <Elements stripe={loadStripe(stripeApikey)}>
+          <Routes>
+            <Route
+              path="/payment"
+              element={
+                <ProtectedRoute>
+                  <PaymentPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Elements>
+      )}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -79,14 +103,14 @@ const App = () => {
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/donations" element={<DonationsPage />} />
 
-        <Route
+        {/*<Route
           path="/payment"
           element={
             <ProtectedRoute>
               <PaymentPage />
             </ProtectedRoute>
           }
-        />
+        />*/}
         <Route path="/order/success" element={<OrderSuccessPage />} />
         <Route
           path="/profile"

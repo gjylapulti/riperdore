@@ -50,9 +50,51 @@ export const Checkout = () => {
         user,
       };
 
-      // update local storage with the updated orders array
       localStorage.setItem("latestOrder", JSON.stringify(orderData));
       navigate("/payment");
+    }
+  };
+
+  const handleClaimDonation = async () => {
+    // Add your logic to create an order directly here
+    const shippingAddress = {
+      address1,
+      address2,
+      zipCode,
+      country,
+      city,
+    };
+
+    const orderData = {
+      cart,
+      totalPrice,
+      shipping,
+      shippingAddress,
+      user,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.post(
+        `${server}/order/create-order`,
+        orderData,
+        config
+      );
+      // Order created successfully, proceed to success page or perform any other necessary action
+      navigate("/order/success");
+      toast.success("Order successful!");
+      localStorage.setItem("cartItems", JSON.stringify([]));
+      localStorage.setItem("latestOrder", JSON.stringify([]));
+      window.location.reload();
+    } catch (error) {
+      // Handle error if order creation fails
+      console.error("Error creating order:", error);
+      toast.error("Failed to create order. Please try again later.");
     }
   };
 
@@ -61,7 +103,7 @@ export const Checkout = () => {
     0
   );
 
-  // this is shipping cost variable
+  //shipping cost variable
   const shipping = subTotalPrice * 0.1;
 
   const totalPrice = (subTotalPrice + shipping).toFixed(2);
@@ -96,9 +138,11 @@ export const Checkout = () => {
       </div>
       <div
         className={`${styles.button} w-[150px] 800px:w-[280px] mt-10`}
-        onClick={paymentSubmit}
+        onClick={totalPrice === "0.00" ? handleClaimDonation : paymentSubmit}
       >
-        <h5 className="text-white">Go to Payment</h5>
+        <h5 className="text-white">
+          {totalPrice === "0.00" ? "Claim Donation/s" : "Go to Payment"}
+        </h5>
       </div>
     </div>
   );
@@ -276,17 +320,17 @@ const CartData = ({
   return (
     <div className="w-full bg-[#fff] rounded-md p-5 pb-8">
       <div className="flex justify-between">
-        <h3 className="text-[16px] font-[400] text-[#000000a4]">subtotal:</h3>
-        <h5 className="text-[18px] font-[600]">${subTotalPrice}</h5>
+        <h3 className="text-[16px] font-[400] text-[#000000a4]">Subtotal:</h3>
+        <h5 className="text-[18px] font-[600]">{subTotalPrice}€</h5>
       </div>
       <br />
       <div className="flex justify-between">
-        <h3 className="text-[16px] font-[400] text-[#000000a4]">shipping:</h3>
-        <h5 className="text-[18px] font-[600]">${shipping.toFixed(2)}</h5>
+        <h3 className="text-[16px] font-[400] text-[#000000a4]">Shipping:</h3>
+        <h5 className="text-[18px] font-[600]">{shipping.toFixed(2)}€</h5>
       </div>
       <br />
 
-      <h5 className="text-[18px] font-[600] text-end pt-3">${totalPrice}</h5>
+      <h5 className="text-[18px] font-[600] text-end pt-3">{totalPrice}€</h5>
       <br />
     </div>
   );
