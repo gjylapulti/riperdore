@@ -3,8 +3,21 @@ require("dotenv").config({
 });
 
 const app = require("./app");
-
 const connectDatabase = require("./db/Database");
+
+const mailchimp = require("@mailchimp/mailchimp_marketing");
+
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: process.env.MAILCHIMP_API_SERVER,
+});
+
+async function callPing() {
+  const response = await mailchimp.ping.get();
+  console.log(response);
+}
+
+callPing();
 
 // Handling uncaught Exception
 process.on("uncaughtException", (err) => {

@@ -11,11 +11,12 @@ import {
   footerProductLinks,
   footerSupportLinks,
 } from "../../static/data";
+import SubscriptionForm from "./SubscriptionForm";
 
 const Footer = () => {
   return (
     <div className="bg-[#000] text-black">
-      <div className="md:flex md:justify-between md:items-center sm:px-12 px-4 bg-[#f7cdd1] py-7">
+      {/* <div className="md:flex md:justify-between md:items-center sm:px-12 px-4 bg-[#f7cdd1] py-7">
         <h1 className="lg:text-4xl text-3xl md:mb-0 mb-6 lg:leading-normal font-semibold md:w-2/5">
           <span className="text-[#a76a30]">Subscribe </span> to us for news{" "}
           <br />
@@ -32,8 +33,9 @@ const Footer = () => {
           <button className="bg-[#56d879] hover:bg-teal-500 duration-300 px-5 py-2.5 rounded-md text-whie md:w-auto w-full">
             Submit
           </button>
-        </div>
-      </div>
+        </div> 
+  </div>*/}
+      <SubscriptionForm />
       <div className="grid grid-cols-1 sm:gird-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-16 sm:text-center">
         <ul className="px-5 text-center sm:text-start flex sm:block flex-col items-center">
           <img src="./logoblack.png" alt="" style={{ width: "220px" }} />

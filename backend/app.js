@@ -32,6 +32,7 @@ const product = require("./controller/product");
 const donation = require("./controller/donation");
 const payment = require("./controller/payment");
 const order = require("./controller/order");
+const mailsubscriptions = require("./controller/mailsubscriptions");
 
 app.use("/api/v2/user", user);
 app.use("/api/v2/shop", shop);
@@ -39,6 +40,7 @@ app.use("/api/v2/product", product);
 app.use("/api/v2/donation", donation);
 app.use("/api/v2/payment", payment);
 app.use("/api/v2/order", order);
+app.use("/api/v2/mailsubscriptions", mailsubscriptions);
 
 // error handling
 app.use(ErrorHandler);
