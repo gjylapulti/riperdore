@@ -17,6 +17,7 @@ import {
 } from "../../redux/actions/wishlist";
 import { addTocart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
+import Ratings from "./Ratings";
 
 const ProductDetails = ({ data }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -76,6 +77,20 @@ const ProductDetails = ({ data }) => {
     }
   };
 
+  const totalReviewsLength =
+    products &&
+    products.reduce((acc, product) => acc + product.reviews.length, 0);
+
+  const totalRatings =
+    products &&
+    products.reduce(
+      (acc, product) =>
+        acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
+      0
+    );
+
+  const averageRating = totalRatings / totalReviewsLength || 0;
+
   return (
     <div className="bg-white">
       {data ? (
@@ -112,15 +127,29 @@ const ProductDetails = ({ data }) => {
                 </div>
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
+                {data.discountPrice === 0 && (
+                  <h2 className="text-green-500">Donation</h2>
+                )}
                 <h1 className={`${styles.productTitle}`}>{data.name}</h1>
                 <p>{data.description}</p>
                 <div className="flex pt-3">
-                  <h4 className={`${styles.productDiscountPrice}`}>
-                    {data.discountPrice}€
-                  </h4>
-                  <h3 className={`${styles.price}`}>
-                    {data.originalPrice ? data.originalPrice + "€" : null}
-                  </h3>
+                  {data.discountPrice !== 0 ? (
+                    <>
+                      <h4 className={`${styles.productDiscountPrice}`}>
+                        {data.discountPrice}€
+                      </h4>
+                      <h3 className={`${styles.price}`}>
+                        {data.originalPrice ? data.originalPrice + "€" : null}
+                      </h3>
+                    </>
+                  ) : (
+                    <h4
+                      className={`${styles.productDiscountPrice}`}
+                      style={{ color: "green" }}
+                    >
+                      <span className="text-black">Price:</span> FREE
+                    </h4>
+                  )}
                 </div>
 
                 <div className="flex items-center mt-12 justify-between pr-3">
@@ -181,7 +210,9 @@ const ProductDetails = ({ data }) => {
                     <h3 className={`${styles.shop_name} pb-1 pt-1`}>
                       {data.shop.name}
                     </h3>
-                    <h5 className="pb-3 text-[15px]">(4/5) Ratings</h5>
+                    <h5 className="pb-3 text-[15px]">
+                      ({averageRating}/5) Ratings
+                    </h5>{" "}
                   </div>
                   <div
                     className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
@@ -195,7 +226,12 @@ const ProductDetails = ({ data }) => {
               </div>
             </div>
           </div>
-          <ProductDetailsInfo data={data} products={products} />
+          <ProductDetailsInfo
+            data={data}
+            products={products}
+            totalReviewsLength={totalReviewsLength}
+            averageRating={averageRating}
+          />
           <br />
           <br />
         </div>
@@ -204,7 +240,12 @@ const ProductDetails = ({ data }) => {
   );
 };
 
-const ProductDetailsInfo = ({ data, products }) => {
+const ProductDetailsInfo = ({
+  data,
+  products,
+  totalReviewsLength,
+  averageRating,
+}) => {
   const [active, setActive] = useState(1);
 
   return (
@@ -236,6 +277,7 @@ const ProductDetailsInfo = ({ data, products }) => {
             <div className={`${styles.active_indicator}`} />
           ) : null}
         </div>
+
         <div className="relative">
           <h5
             className={
@@ -259,8 +301,30 @@ const ProductDetailsInfo = ({ data, products }) => {
       ) : null}
 
       {active === 2 ? (
-        <div className="w-full justify-center min-h-[40vh] flex items-center">
-          <p>No Reviews yet!</p>
+        <div className="w-full min-h-[40vh] flex flex-col items-center py-3 overflow-y-scroll">
+          {data &&
+            data.reviews.map((item, index) => (
+              <div className="w-full flex my-2">
+                <img
+                  src={`${backend_url}/${item.user.avatar}`}
+                  alt=""
+                  className="w-[50px] h-[50px] rounded-full"
+                />
+                <div className="pl-2 ">
+                  <div className="w-full flex items-center">
+                    <h1 className="font-[500] mr-3">{item.user.name}</h1>
+                    <Ratings rating={data?.ratings} />
+                  </div>
+                  <p>{item.comment}</p>
+                </div>
+              </div>
+            ))}
+
+          {data && data.reviews && data.reviews.length === 0 && (
+            <div className="w-full flex justify-center">
+              <h5>No Reviews have for this </h5>
+            </div>
+          )}
         </div>
       ) : null}
 
@@ -276,7 +340,9 @@ const ProductDetailsInfo = ({ data, products }) => {
                 />
                 <div className="pl-3">
                   <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
-                  <h5 className="pb-2 text-[15px]">(4/5) Ratings</h5>
+                  <h5 className="pb-3 text-[15px]">
+                    ({averageRating}/5) Ratings
+                  </h5>{" "}
                 </div>
               </div>
             </Link>
@@ -297,7 +363,8 @@ const ProductDetailsInfo = ({ data, products }) => {
                 </span>
               </h5>
               <h5 className="font-[600] pt-3">
-                Total Reviews: <span className="font-[500]">324</span>
+                Total Reviews:
+                <span className="font-[500]"> {totalReviewsLength}</span>
               </h5>
               <Link to="/">
                 <div

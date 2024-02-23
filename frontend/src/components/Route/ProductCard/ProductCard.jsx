@@ -17,6 +17,7 @@ import {
 import { useEffect } from "react";
 import { addTocart } from "../../../redux/actions/cart";
 import { toast } from "react-toastify";
+import Ratings from "./../../Products/Ratings";
 
 const ProductCard = ({ data, isEvent }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -88,21 +89,25 @@ const ProductCard = ({ data, isEvent }) => {
           <h4 className="pb-3 font-[500]">
             {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
           </h4>
-        </Link>
 
-        <div className="py-2 flex items-center justify-between">
           <div className="flex">
-            <h5 className={`${styles.productDiscountPrice}`}>
-              {data.originalPrice === 0
-                ? data.originalPrice
-                : data.discountPrice}
-              €
-            </h5>
-            <h4 className={`${styles.price}`}>
-              {data.originalPrice ? data.originalPrice + "€" : null}
-            </h4>
+            <Ratings rating={data?.ratings} />
           </div>
-        </div>
+
+          <div className="py-2 flex items-center justify-between">
+            <div className="flex">
+              <h5 className={`${styles.productDiscountPrice}`}>
+                {data.originalPrice === 0
+                  ? data.originalPrice
+                  : data.discountPrice}
+                €
+              </h5>
+              <h4 className={`${styles.price}`}>
+                {data.originalPrice ? data.originalPrice + "€" : null}
+              </h4>
+            </div>
+          </div>
+        </Link>
 
         {/* side options */}
         <div>

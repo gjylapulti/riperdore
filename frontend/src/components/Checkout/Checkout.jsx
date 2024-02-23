@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "../../styles/styles";
-import { Country, State } from "country-state-city";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -216,19 +215,18 @@ const ShippingInfo = ({
           <div className="w-[50%]">
             <label className="block pb-2">Country</label>
             <select
-              className="w-[95%] border h-[40px] rounded-[5px]"
+              className="w-[95%] border h-[40px] rounded-[5px] text-black"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
+              disabled
+              style={{
+                opacity: 1,
+                cursor: "default",
+                backgroundColor: "#ffffff",
+                pointerEvents: "none",
+              }}
             >
-              <option className="block pb-2" value="">
-                Choose your country
-              </option>
-              {Country &&
-                Country.getAllCountries().map((item) => (
-                  <option key={item.isoCode} value={item.isoCode}>
-                    {item.name}
-                  </option>
-                ))}
+              <option value="Kosovë">Kosovë</option>
             </select>
           </div>
           <div className="w-[50%]">
@@ -241,12 +239,32 @@ const ShippingInfo = ({
               <option className="block pb-2" value="">
                 Choose your City
               </option>
-              {State &&
-                State.getStatesOfCountry(country).map((item) => (
-                  <option key={item.isoCode} value={item.isoCode}>
-                    {item.name}
-                  </option>
-                ))}
+              <option value="Deçan">Deçan</option>
+              <option value="Dragash">Dragash</option>
+              <option value="Drenas">Drenas</option>
+              <option value="Ferizaj">Ferizaj</option>
+              <option value="Fushë Kosovë">Fushë Kosovë</option>
+              <option value="Gjakova">Gjakova</option>
+              <option value="Gjilan">Gjilan</option>
+              <option value="Istog">Istog</option>
+              <option value="Kaçanik">Kaçanik</option>
+              <option value="Kamenica">Kamenica</option>
+              <option value="Klina">Klina</option>
+              <option value="Lipjan">Lipjan</option>
+              <option value="Malisheva">Malisheva</option>
+              <option value="Mitrovica">Mitrovica</option>
+              <option value="Obiliq">Obiliq</option>
+              <option value="Peja">Peja</option>
+              <option value="Podujeva">Podujeva</option>
+              <option value="Prishtinë">Prishtinë</option>
+              <option value="Prizren">Prizren</option>
+              <option value="Rahovec">Rahovec</option>
+              <option value="Štrpce">Shtërpcë</option>
+              <option value="Shtime">Shtime</option>
+              <option value="Skenderaj">Skenderaj</option>
+              <option value="Suhareka">Suhareka</option>
+              <option value="Viti">Viti</option>
+              <option value="Vushtrri">Vushtrri</option>
             </select>
           </div>
         </div>

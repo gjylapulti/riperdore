@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BsFillBagFill } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/styles";
@@ -70,8 +69,7 @@ const UserOrderDetails = () => {
     <div className={`py-4 min-h-screen ${styles.section}`}>
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center">
-          <BsFillBagFill size={30} color="crimson" />
-          <h1 className="pl-2 text-[25px]">Order Details</h1>
+          <h1 className=" text-[25px]">Order Details</h1>
         </div>
       </div>
 
@@ -101,7 +99,7 @@ const UserOrderDetails = () => {
                 {item.discountPrice}€ x {item.qty}
               </h5>
             </div>
-            {item.status === "delivered" ? null : (
+            {item.isReviewed ? null : (
               <div
                 className={`${styles.button} text-[#fff]`}
                 onClick={() => setOpen(true) || setSelectedItem(item)}
