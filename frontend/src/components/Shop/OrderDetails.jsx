@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/styles";
-import { BsFillBagFill } from "react-icons/bs";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
@@ -63,7 +62,6 @@ const OrderDetails = () => {
     <div className={`py-4 min-h-screen ${styles.section}`}>
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center">
-          <BsFillBagFill size={30} color="crimson" />
           <h1 className="pl-2 text-[25px]">Order Details</h1>
         </div>
         <Link to="/dashboard-orders">
