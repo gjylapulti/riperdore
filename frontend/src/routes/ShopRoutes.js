@@ -6,6 +6,8 @@ import ShopAllDonations from "../pages/Shop/ShopAllDonations";
 import ShopPreviewPage from "../pages/Shop/ShopPreviewPage";
 import ShopAllOrders from "../pages/Shop/ShopAllOrders";
 import ShopOrderDetails from "../pages/Shop/ShopOrderDetails";
+import ShopSettingsPage from "../pages/Shop/ShopSettingsPage";
+import ShopInboxPage from "../pages/Shop/ShopInboxPage";
 
 export {
   ShopDashboardPage,
@@ -16,4 +18,6 @@ export {
   ShopPreviewPage,
   ShopAllOrders,
   ShopOrderDetails,
+  ShopSettingsPage,
+  ShopInboxPage,
 };

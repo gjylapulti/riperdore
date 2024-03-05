@@ -67,7 +67,7 @@ const ProfileContent = ({ active }) => {
       })
       .then((response) => {
         dispatch(loadUser());
-        toast.success("avatar updated successfully!");
+        toast.success("Avatar updated successfully!");
       })
       .catch((error) => {
         toast.error(error);

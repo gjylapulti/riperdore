@@ -59,9 +59,8 @@ const AllProducts = () => {
       type: "number",
       sortable: false,
       renderCell: (params) => {
-        const product_name = params.row.name.replace(/\s+/g, "-");
         return (
-          <Link to={`/product/${product_name}`}>
+          <Link to={`/product/${params.id}`}>
             <Button>
               <AiOutlineEye size={20} />
             </Button>

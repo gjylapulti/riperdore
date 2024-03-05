@@ -15,6 +15,7 @@ import ShopLoginPage from "../pages/ShopLoginPage";
 import DonationsPage from "../pages/DonationsPage";
 import OrderDetailsPage from "../pages/OrderDetailsPage";
 import TrackOrderPage from "../pages/TrackOrderPage";
+import UserInbox from "../pages/UserInbox.jsx";
 
 export {
   LoginPage,
@@ -34,4 +35,5 @@ export {
   DonationsPage,
   OrderDetailsPage,
   TrackOrderPage,
+  UserInbox,
 };

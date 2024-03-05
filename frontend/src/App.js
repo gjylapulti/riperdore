@@ -28,6 +28,7 @@ import {
   DonationsPage,
   OrderDetailsPage,
   TrackOrderPage,
+  UserInbox,
 } from "./routes/Routes.js";
 import {
   ShopDashboardPage,
@@ -38,6 +39,8 @@ import {
   ShopPreviewPage,
   ShopAllOrders,
   ShopOrderDetails,
+  ShopSettingsPage,
+  ShopInboxPage,
 } from "./routes/ShopRoutes.js";
 import { ShopHomePage } from "./ShopRoutes.js";
 import { getAllProducts } from "./redux/actions/product";
@@ -122,6 +125,15 @@ const App = () => {
           }
         />
 
+        <Route
+          path="/inbox"
+          element={
+            <ProtectedRoute>
+              <UserInbox />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
 
         {/* shop Routes */}
@@ -132,6 +144,15 @@ const App = () => {
           element={
             <SellerProtectedRoute>
               <ShopHomePage />
+            </SellerProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <SellerProtectedRoute>
+              <ShopSettingsPage />
             </SellerProtectedRoute>
           }
         />
@@ -163,6 +184,14 @@ const App = () => {
           }
         />
 
+        <Route
+          path="/dashboard-messages"
+          element={
+            <SellerProtectedRoute>
+              <ShopInboxPage />
+            </SellerProtectedRoute>
+          }
+        />
         <Route
           path="/user/order/:id"
           element={
