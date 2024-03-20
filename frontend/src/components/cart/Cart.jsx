@@ -16,9 +16,12 @@ const Cart = ({ setOpenCart }) => {
   const removeFromCartHandler = (data) => {
     dispatch(removeFromCart(data));
   };
-
   const totalPrice = cart.reduce(
-    (acc, item) => acc + item.qty * item.discountPrice,
+    (acc, item) =>
+      acc +
+      (item.discountPrice !== 0
+        ? item.qty * item.discountPrice
+        : item.qty * item.originalPrice),
     0
   );
 
@@ -80,7 +83,7 @@ const Cart = ({ setOpenCart }) => {
                   className={`h-[45px] flex items-center justify-center w-[100%] bg-[#e44343] rounded-[5px]`}
                 >
                   <h1 className="text-[#fff] text-[18px] font-[600]">
-                    Checkout Now ( {totalPrice} € )
+                    Checkout Now ( {totalPrice.toFixed(2)} € )
                   </h1>
                 </div>
               </Link>
@@ -94,21 +97,27 @@ const Cart = ({ setOpenCart }) => {
 
 const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
   const [value, setValue] = useState(data.qty);
-  const totalPrice = data.discountPrice * value;
+  const totalPrice =
+    data.discountPrice !== 0
+      ? data.discountPrice * value
+      : data.originalPrice * value;
 
-  const increment = (data) => {
-    if (data.stock < value) {
+  const increment = () => {
+    if (data.stock <= value) {
       toast.error("Product stock limited!");
     } else {
-      setValue(value + 1);
+      setValue((prevValue) => prevValue + 1);
       const updateCartData = { ...data, qty: value + 1 };
       quantityChangeHandler(updateCartData);
     }
   };
 
-  const decrement = (data) => {
-    setValue(value === 1 ? 1 : value - 1);
-    const updateCartData = { ...data, qty: value === 1 ? 1 : value - 1 };
+  const decrement = () => {
+    if (value === 1) {
+      return; // Prevent decrementing below 1
+    }
+    setValue((prevValue) => prevValue - 1);
+    const updateCartData = { ...data, qty: value - 1 };
     quantityChangeHandler(updateCartData);
   };
 
@@ -138,7 +147,9 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
         <div className="pl-[5px]">
           <h1>{data.name}</h1>
           <h4 className="font-[400] text-[15px] text-[#00000082]">
-            {data.discountPrice}€ * {value}
+            {data.discountPrice !== 0
+              ? `${data.discountPrice}€ * ${value}`
+              : `${data.originalPrice}€ * ${value}`}
           </h4>
           <h4 className="font-[600] text-[17px] pt-[3px] text-[#d02222] font-Roboto">
             Total: {totalPrice}€

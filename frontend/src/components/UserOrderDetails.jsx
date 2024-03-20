@@ -99,7 +99,7 @@ const UserOrderDetails = () => {
                 {item.discountPrice}€ x {item.qty}
               </h5>
             </div>
-            {item.isReviewed ? null : (
+            {item.isReviewed || !item.status === "Delivered" ? null : (
               <div
                 className={`${styles.button} text-[#fff]`}
                 onClick={() => setOpen(true) || setSelectedItem(item)}

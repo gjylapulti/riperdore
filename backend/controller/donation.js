@@ -4,7 +4,7 @@ const { upload } = require("../multer");
 const Shop = require("../model/shop");
 const Donation = require("../model/donation");
 const ErrorHandler = require("../utils/ErrorHandler");
-const { isSeller } = require("../middleware/auth");
+const { isSeller, isAuthenticated, isAdmin } = require("../middleware/auth");
 const router = express.Router();
 const fs = require("fs");
 
@@ -102,6 +102,26 @@ router.delete(
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));
+    }
+  })
+);
+
+// all donations --- for admin
+router.get(
+  "/admin-all-donations",
+  isAuthenticated,
+  isAdmin("Admin"),
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const donations = await Donation.find().sort({
+        createdAt: -1,
+      });
+      res.status(201).json({
+        success: true,
+        donations,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
     }
   })
 );

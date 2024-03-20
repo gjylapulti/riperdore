@@ -21,8 +21,9 @@ const productSchema = new mongoose.Schema({
   },
   discountPrice: {
     type: Number,
-    required: [true, "Please enter your product price!"],
+    default: 0,
   },
+
   images: [
     {
       type: String,
@@ -62,6 +63,10 @@ const productSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
+  },
+  stock: {
+    type: Number,
+    default: 1,
   },
 });
 

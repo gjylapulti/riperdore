@@ -7,7 +7,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Store from "./redux/store";
 import { loadSeller, loadUser } from "./redux/actions/user";
-import { useSelector } from "react-redux";
 import ProtectedRoute from "./routes/ProtectedRoute.js";
 import SellerProtectedRoute from "./routes/SellerProtectedRoute.js";
 import {
@@ -29,6 +28,8 @@ import {
   OrderDetailsPage,
   TrackOrderPage,
   UserInbox,
+  BlogPage,
+  SingleBlogpostPage,
 } from "./routes/Routes.js";
 import {
   ShopDashboardPage,
@@ -42,11 +43,23 @@ import {
   ShopSettingsPage,
   ShopInboxPage,
 } from "./routes/ShopRoutes.js";
+import {
+  AdminDashboardPage,
+  AdminDashboardSellers,
+  AdminDashboardOrders,
+  AdminDashboardProducts,
+  AdminDashboardUsers,
+  AdminDashboardDonations,
+  AdminDashboardCreateBlogPage,
+  AdminDashboardAllBlogposts,
+  AdminDashboardEditBlogPage,
+} from "./routes/AdminRoutes";
 import { ShopHomePage } from "./ShopRoutes.js";
 import { getAllProducts } from "./redux/actions/product";
 import { getAllDonations } from "./redux/actions/donation";
 import axios from "axios";
 import { server } from "./server";
+import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
@@ -85,6 +98,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:id" element={<SingleBlogpostPage />} />
+
         <Route path="/sign-up" element={<SignupPage />} />
         <Route
           path="/activation/:activation_token"
@@ -241,6 +257,81 @@ const App = () => {
             <SellerProtectedRoute>
               <ShopOrderDetails />
             </SellerProtectedRoute>
+          }
+        />
+
+        {/* Admin Routes */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardPage />
+            </ProtectedAdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin-sellers"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardSellers />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin-orders"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardOrders />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin-products"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardProducts />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin-users"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardUsers />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin-donations"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardDonations />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/create-blog"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardCreateBlogPage />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-blog/:id"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardEditBlogPage />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/all-blog-posts"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardAllBlogposts />
+            </ProtectedAdminRoute>
           }
         />
       </Routes>

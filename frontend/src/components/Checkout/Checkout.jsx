@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 export const Checkout = () => {
   const { user } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart);
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("Kosovë");
   const [city, setCity] = useState("");
   const [userInfo, setUserInfo] = useState(false);
   const [address1, setAddress1] = useState("");
@@ -23,6 +23,12 @@ export const Checkout = () => {
   }, []);
 
   const paymentSubmit = () => {
+    console.log("Address1:", address1);
+    console.log("Address2:", address2);
+    console.log("Zip Code:", zipCode);
+    console.log("Country:", country);
+    console.log("City:", city);
+
     if (
       address1 === "" ||
       address2 === "" ||
@@ -98,7 +104,11 @@ export const Checkout = () => {
   };
 
   const subTotalPrice = cart.reduce(
-    (acc, item) => acc + item.qty * item.discountPrice,
+    (acc, item) =>
+      acc +
+      (item.discountPrice !== 0
+        ? item.qty * item.discountPrice
+        : item.qty * item.originalPrice),
     0
   );
 
@@ -218,15 +228,13 @@ const ShippingInfo = ({
               className="w-[95%] border h-[40px] rounded-[5px] text-black"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              disabled
               style={{
                 opacity: 1,
                 cursor: "default",
                 backgroundColor: "#ffffff",
-                pointerEvents: "none",
               }}
             >
-              <option value="Kosovë">Kosovë</option>
+              <option value="Kosov">Kosovë</option>
             </select>
           </div>
           <div className="w-[50%]">
@@ -339,7 +347,7 @@ const CartData = ({
     <div className="w-full bg-[#fff] rounded-md p-5 pb-8">
       <div className="flex justify-between">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">Subtotal:</h3>
-        <h5 className="text-[18px] font-[600]">{subTotalPrice}€</h5>
+        <h5 className="text-[18px] font-[600]">{subTotalPrice.toFixed(2)}€</h5>
       </div>
       <br />
       <div className="flex justify-between">

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { server } from "../../server";
+import { Navigate } from "react-router-dom";
 
 // load user
 export const loadUser = () => async (dispatch) => {
@@ -142,6 +143,29 @@ export const deleteUserAddress = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "deleteUserAddressFailed",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// get all users --- admin
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "getAllUsersRequest",
+    });
+
+    const { data } = await axios.get(`${server}/user/admin-all-users`, {
+      withCredentials: true,
+    });
+
+    dispatch({
+      type: "getAllUsersSuccess",
+      payload: data.users,
+    });
+  } catch (error) {
+    dispatch({
+      type: "getAllUsersFailed",
       payload: error.response.data.message,
     });
   }

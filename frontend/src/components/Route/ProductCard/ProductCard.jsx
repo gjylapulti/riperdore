@@ -62,6 +62,11 @@ const ProductCard = ({ data, isEvent }) => {
   return (
     <>
       <div className="w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer">
+        {data.stock === 0 && (
+          <span className="absolute top-2 left-2 bg-red-500 text-white py-1 px-2 rounded">
+            Out of Stock
+          </span>
+        )}
         <div className="flex justify-end"></div>
         <Link
           to={`${
@@ -96,15 +101,22 @@ const ProductCard = ({ data, isEvent }) => {
 
           <div className="py-2 flex items-center justify-between">
             <div className="flex">
-              <h5 className={`${styles.productDiscountPrice}`}>
-                {data.originalPrice === 0
-                  ? data.originalPrice
-                  : data.discountPrice}
-                €
-              </h5>
-              <h4 className={`${styles.price}`}>
-                {data.originalPrice ? data.originalPrice + "€" : null}
-              </h4>
+              {data.discountPrice ? (
+                <>
+                  <h5 className={`${styles.productDiscountPrice}`}>
+                    {data.discountPrice}€
+                  </h5>
+                  {data.originalPrice && (
+                    <h4 className={`${styles.price} ml-3`}>
+                      {data.originalPrice}€
+                    </h4>
+                  )}
+                </>
+              ) : (
+                <h5 className={`${styles.productDiscountPrice}`}>
+                  {data.originalPrice}€
+                </h5>
+              )}
             </div>
           </div>
         </Link>

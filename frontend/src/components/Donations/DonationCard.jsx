@@ -7,6 +7,10 @@ import { addTocart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
 import "./../../../src/App.css";
 
+{
+  /*Mungen stock--kena quantity */
+}
+
 const DonationCard = ({ active, data }) => {
   const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();

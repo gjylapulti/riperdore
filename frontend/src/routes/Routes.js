@@ -16,6 +16,8 @@ import DonationsPage from "../pages/DonationsPage";
 import OrderDetailsPage from "../pages/OrderDetailsPage";
 import TrackOrderPage from "../pages/TrackOrderPage";
 import UserInbox from "../pages/UserInbox.jsx";
+import BlogPage from "../pages/BlogPage.jsx";
+import SingleBlogpostPage from "../pages/SingleBlogpostPage.jsx";
 
 export {
   LoginPage,
@@ -36,4 +38,6 @@ export {
   OrderDetailsPage,
   TrackOrderPage,
   UserInbox,
+  BlogPage,
+  SingleBlogpostPage,
 };

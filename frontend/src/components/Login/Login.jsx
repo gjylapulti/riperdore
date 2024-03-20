@@ -4,10 +4,14 @@ import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { server } from "../../server";
 
+import { useDispatch } from "react-redux";
+import { loadUser } from "./../../redux/actions/user";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +34,7 @@ const Login = () => {
       )
       .then((res) => {
         toast.success("Login Success");
+        dispatch(loadUser()); // Dispatch the loadUser action after successful login
         navigate("/");
         window.location.reload(true);
       })

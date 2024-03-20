@@ -1,19 +1,27 @@
 import React, { useEffect } from "react";
-import Login from "../components/Login/Login";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Login from "../components/Login/Login.jsx";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (isAuthenticated === true) {
-      navigate("/");
+    if (isAuthenticated) {
+      if (user && user.role === "Admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     }
-  }, []);
+  }, [isAuthenticated, user, navigate]);
 
-  return <Login />;
+  return (
+    <div>
+      <Login />
+    </div>
+  );
 };
 
 export default LoginPage;

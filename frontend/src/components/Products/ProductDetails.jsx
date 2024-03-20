@@ -87,8 +87,8 @@ const ProductDetails = ({ data }) => {
     if (isItemExists) {
       toast.error("Item already in cart!");
     } else {
-      if (data.stock < 1) {
-        toast.error("Product stock limited!");
+      if (count > data.stock) {
+        toast.error("Not enough stock available!");
       } else {
         const cartData = { ...data, qty: count };
         dispatch(addTocart(cartData));
@@ -147,30 +147,47 @@ const ProductDetails = ({ data }) => {
                 </div>
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
-                {data.discountPrice === 0 && (
-                  <h2 className="text-green-500">Donation</h2>
-                )}
-                <h1 className={`${styles.productTitle}`}>{data.name}</h1>
-                <p>{data.description}</p>
-                <div className="flex pt-3">
-                  {data.discountPrice !== 0 ? (
-                    <>
-                      <h4 className={`${styles.productDiscountPrice}`}>
-                        {data.discountPrice}€
-                      </h4>
-                      <h3 className={`${styles.price}`}>
-                        {data.originalPrice ? data.originalPrice + "€" : null}
-                      </h3>
-                    </>
-                  ) : (
+                {data.discountPrice === 0 && data.originalPrice === 0 ? (
+                  <>
+                    <h2 className="text-green-500">Donation</h2>
+                    <h1 className={`${styles.productTitle}`}>{data.name}</h1>
+                    <p>{data.description}</p>
+                    <br></br>
                     <h4
                       className={`${styles.productDiscountPrice}`}
                       style={{ color: "green" }}
                     >
                       <span className="text-black">Price:</span> FREE
                     </h4>
-                  )}
-                </div>
+                  </>
+                ) : (
+                  <>
+                    <h1 className={`${styles.productTitle}`}>{data.name}</h1>
+                    <p>{data.description}</p>
+                    <div className="flex pt-3">
+                      {data.discountPrice !== 0 ? (
+                        <>
+                          <h4 className={`${styles.productDiscountPrice}`}>
+                            {data.discountPrice}€
+                          </h4>
+                          {data.originalPrice && (
+                            <h3 className={`${styles.price}`}>
+                              {data.originalPrice}€
+                            </h3>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <h4 className={`${styles.productDiscountPrice}`}>
+                            {data.originalPrice}€
+                          </h4>
+                          <h3 className={`${styles.price}`}></h3>{" "}
+                          {/* Empty placeholder for consistency */}
+                        </>
+                      )}
+                    </div>
+                  </>
+                )}
 
                 <div className="flex items-center mt-12 justify-between pr-3">
                   <div>
@@ -322,9 +339,9 @@ const ProductDetailsInfo = ({
 
       {active === 2 ? (
         <div className="w-full min-h-[40vh] flex flex-col items-center py-3 overflow-y-scroll">
-          {data &&
+          {data && data.reviews ? (
             data.reviews.map((item, index) => (
-              <div className="w-full flex my-2">
+              <div className="w-full flex my-2" key={index}>
                 <img
                   src={`${backend_url}/${item.user.avatar}`}
                   alt=""
@@ -338,11 +355,10 @@ const ProductDetailsInfo = ({
                   <p>{item.comment}</p>
                 </div>
               </div>
-            ))}
-
-          {data && data.reviews && data.reviews.length === 0 && (
+            ))
+          ) : (
             <div className="w-full flex justify-center">
-              <h5>No Reviews have for this </h5>
+              <h5>No Reviews available for this product</h5>
             </div>
           )}
         </div>

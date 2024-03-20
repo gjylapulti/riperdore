@@ -437,7 +437,7 @@ const ChangePassword = () => {
 
 const Address = () => {
   const [open, setOpen] = useState(false);
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("Kosovë");
   const [city, setCity] = useState("");
   const [zipCode, setZipCode] = useState();
   const [address1, setAddress1] = useState("");
@@ -510,50 +510,55 @@ const Address = () => {
                   <div className="w-full pb-2">
                     <label className="block pb-2">Country</label>
                     <select
-                      name=""
-                      id=""
+                      className="w-[95%] border h-[40px] rounded-[5px] text-black"
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
-                      className="w-[95%] border h-[40px] rounded-[5px]"
+                      style={{
+                        opacity: 1,
+                        cursor: "default",
+                        backgroundColor: "#ffffff",
+                      }}
                     >
-                      <option value="" className="block border pb-2">
-                        choose your country
-                      </option>
-                      {Country &&
-                        Country.getAllCountries().map((item) => (
-                          <option
-                            className="block pb-2"
-                            key={item.isoCode}
-                            value={item.isoCode}
-                          >
-                            {item.name}
-                          </option>
-                        ))}
+                      <option value="Kosov">Kosovë</option>
                     </select>
                   </div>
 
                   <div className="w-full pb-2">
                     <label className="block pb-2">Choose your City</label>
                     <select
-                      name=""
-                      id=""
+                      className="w-[95%] border h-[40px] rounded-[5px]"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="w-[95%] border h-[40px] rounded-[5px]"
                     >
-                      <option value="" className="block border pb-2">
-                        choose your city
+                      <option className="block pb-2" value="">
+                        Choose your City
                       </option>
-                      {State &&
-                        State.getStatesOfCountry(country).map((item) => (
-                          <option
-                            className="block pb-2"
-                            key={item.isoCode}
-                            value={item.isoCode}
-                          >
-                            {item.name}
-                          </option>
-                        ))}
+                      <option value="Deçan">Deçan</option>
+                      <option value="Dragash">Dragash</option>
+                      <option value="Drenas">Drenas</option>
+                      <option value="Ferizaj">Ferizaj</option>
+                      <option value="Fushë Kosovë">Fushë Kosovë</option>
+                      <option value="Gjakova">Gjakova</option>
+                      <option value="Gjilan">Gjilan</option>
+                      <option value="Istog">Istog</option>
+                      <option value="Kaçanik">Kaçanik</option>
+                      <option value="Kamenica">Kamenica</option>
+                      <option value="Klina">Klina</option>
+                      <option value="Lipjan">Lipjan</option>
+                      <option value="Malisheva">Malisheva</option>
+                      <option value="Mitrovica">Mitrovica</option>
+                      <option value="Obiliq">Obiliq</option>
+                      <option value="Peja">Peja</option>
+                      <option value="Podujeva">Podujeva</option>
+                      <option value="Prishtinë">Prishtinë</option>
+                      <option value="Prizren">Prizren</option>
+                      <option value="Rahovec">Rahovec</option>
+                      <option value="Štrpce">Shtërpcë</option>
+                      <option value="Shtime">Shtime</option>
+                      <option value="Skenderaj">Skenderaj</option>
+                      <option value="Suhareka">Suhareka</option>
+                      <option value="Viti">Viti</option>
+                      <option value="Vushtrri">Vushtrri</option>
                     </select>
                   </div>
 

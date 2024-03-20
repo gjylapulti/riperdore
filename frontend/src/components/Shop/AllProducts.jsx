@@ -27,7 +27,7 @@ const AllProducts = () => {
     ? products.map((item) => ({
         id: item._id,
         name: item.name,
-        price: ` ${item.discountPrice}€`,
+        price: ` ${item.originalPrice}€`,
         Stock: item.stock,
         sold: 10,
       }))

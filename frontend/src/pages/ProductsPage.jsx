@@ -1,3 +1,5 @@
+// ProductsPage.jsx
+
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -12,18 +14,38 @@ const ProductsPage = () => {
   const categoryData = searchParams.get("category");
   const { allProducts, isLoading } = useSelector((state) => state.products);
   const [data, setData] = useState([]);
+  const [sortByPrice, setSortByPrice] = useState("highest"); // Sort by price: "highest" or "lowest"
 
   useEffect(() => {
-    if (categoryData === null) {
-      const d = allProducts;
-      setData(d);
-    } else {
-      const d =
-        allProducts && allProducts.filter((i) => i.category === categoryData);
-      setData(d);
+    if (allProducts) {
+      if (categoryData === null) {
+        setData(allProducts);
+      } else {
+        setData(allProducts.filter((i) => i.category === categoryData));
+      }
     }
-    //    window.scrollTo(0,0);
-  }, [allProducts]);
+  }, [allProducts, categoryData]);
+
+  // Filtering function based on price and sorting order
+  const filterByPrice = () => {
+    let filteredData = [...data];
+
+    if (sortByPrice === "highest") {
+      filteredData.sort((a, b) => {
+        const priceA = a.discountPrice > 0 ? a.discountPrice : a.originalPrice;
+        const priceB = b.discountPrice > 0 ? b.discountPrice : b.originalPrice;
+        return priceB - priceA;
+      });
+    } else {
+      filteredData.sort((a, b) => {
+        const priceA = a.discountPrice > 0 ? a.discountPrice : a.originalPrice;
+        const priceB = b.discountPrice > 0 ? b.discountPrice : b.originalPrice;
+        return priceA - priceB;
+      });
+    }
+
+    setData(filteredData);
+  };
 
   return (
     <>
@@ -35,15 +57,41 @@ const ProductsPage = () => {
           <br />
           <br />
           <div className={`${styles.section}`}>
-            <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-4 lg:gap-[25px] xl:grid-cols-5 xl:gap-[30px] mb-12">
-              {data &&
-                data.map((i, index) => <ProductCard data={i} key={index} />)}
+            {/* Sort by price UI */}
+            <div className="flex items-center justify-start space-x-4 mb-6">
+              <label
+                htmlFor="priceSort"
+                className="text-gray-600 font-semibold"
+              >
+                Sort by Price:
+              </label>
+              <select
+                id="priceSort"
+                className="bg-white border border-gray-300 rounded px-3 py-1 focus:outline-none focus:border-pink-500"
+                value={sortByPrice}
+                onChange={(e) => setSortByPrice(e.target.value)}
+              >
+                <option value="highest">Highest Price</option>
+                <option value="lowest">Lowest Price</option>
+              </select>
+              <button
+                className="bg-pink-500 hover:bg-pink-600  text-white font-semibold px-4 py-1 rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
+                onClick={filterByPrice}
+              >
+                Apply
+              </button>
             </div>
-            {data && data.length === 0 ? (
-              <h1 className="text-center w-full pb-[100px] text-[20px]">
-                No products Found!
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {data.map((product, index) => (
+                <ProductCard key={index} data={product} />
+              ))}
+            </div>
+            {data.length === 0 && (
+              <h1 className="text-center text-lg font-bold text-gray-600 mt-8">
+                No products found!
               </h1>
-            ) : null}
+            )}
           </div>
           <Footer />
         </div>
